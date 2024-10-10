@@ -44,14 +44,14 @@ CORS_ALLOW_ALL_ORIGINS = False
 # If you want to allow all origins (not recommended in production):
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5174',  # React frontend
+    'http://localhost:5173',  # React frontend
     'http://localhost:8000',  # Backend API
 ]
 
 CSRF_COOKIE_NAME = "csrftoken"  # Optional, ensures the cookie is named consistently
 CSRF_COOKIE_HTTPONLY = False  # To allow JavaScript to access it (set to False)
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5174',  # React frontend
+    'http://localhost:5173',  # React frontend
 ]
 
 ROOT_URLCONF = 'ai_factory_backend.urls'
@@ -117,6 +117,8 @@ REST_FRAMEWORK = {
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGGING = {
     'version': 1,

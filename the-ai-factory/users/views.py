@@ -40,7 +40,7 @@ class LoginView(APIView):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             logger.info(f"Serializer is valid. Attempting authentication with email: {serializer.validated_data['email']}")
-            user = authenticate(request, username=serializer.validated_data['email'], password=serializer.validated_data['password'])
+            user = authenticate(request, email=serializer.validated_data['email'], password=serializer.validated_data['password'])
             if user:
                 logger.info(f"Authentication successful for user: {user.email}")
                 token, created = Token.objects.get_or_create(user=user)
