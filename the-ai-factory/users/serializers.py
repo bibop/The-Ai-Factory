@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+import logging
 
 User = get_user_model()
+
+logger = logging.getLogger(__name__)
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
@@ -20,8 +23,13 @@ class UserSerializer(serializers.ModelSerializer):
             )
             return user
         except Exception as e:
+            logger.error("Failed to create user.", exc_info=True)
             raise serializers.ValidationError({"error": "Failed to create user. Error: {}".format(e)})
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
+
+    def validate(self, data):
+        logger.info(f"Validating login data: {data}")
+        return data
